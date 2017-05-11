@@ -58,6 +58,8 @@ namespace Project3.Services
             return result;
         }
 
+
+        //method can be moved to view model class
         public async Task<MovieDetails> GetCompleteMovieDetails(int id)
         {
             MovieDetails movieDetails = new MovieDetails();
