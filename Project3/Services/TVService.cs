@@ -18,6 +18,7 @@ namespace Project3.Services
 
         public const string baseUrl = "https://api.themoviedb.org/3/tv/";
         public const string apiKeyValue = "api_key=bb985894bb5421e085e1ded7b8feb337";
+        public const string searchUrl = "https://api.themoviedb.org/3/search/tv";
 
         public async Task<TVShowListResult> GetAiringTodayTVShows(int page)
         {
@@ -51,6 +52,19 @@ namespace Project3.Services
                 var stream = await client.GetStreamAsync(url);
                 var serializer = new DataContractJsonSerializer(typeof(TVShowListResult));
                 result = (TVShowListResult)serializer.ReadObject(stream);
+            }
+            return result;
+        }
+
+        public async Task<TVShowListResult> SearchMovies(string query)
+        {
+            TVShowListResult result = null;
+            using (var client = new HttpClient())
+            {
+                string url = $"{searchUrl}?{apiKeyValue}&language=en-US&query={query}";
+                var response = await client.GetAsync(url);
+                var content = await response.Content.ReadAsStringAsync();
+                result = Newtonsoft.Json.JsonConvert.DeserializeObject<TVShowListResult>(content);
             }
             return result;
         }

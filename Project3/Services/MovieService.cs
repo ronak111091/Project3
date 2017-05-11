@@ -193,7 +193,7 @@ namespace Project3.Services
             }
         }
 
-        public async Task<MovieListResult> searchMovie(string query)
+        public async Task<MovieListResult> SearchMovies(string query)
         {
             MovieListResult result = null;
             using (var client = new HttpClient())
