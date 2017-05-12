@@ -18,7 +18,18 @@ namespace Project3.Models
         public string original_name { get; set; }
         public string original_language { get; set; }
         public string name { get; set; }
-        public string backdrop_path { get; set; }
+        private string _backdrop_path;
+        public string backdrop_path
+        {
+            get
+            {
+                return $"{Constants.GetImageBaseURLForBackground()}{_backdrop_path}";
+            }
+            set
+            {
+                _backdrop_path = value;
+            }
+        }
         public double vote_average { get; set; }
     }
 }

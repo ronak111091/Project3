@@ -17,12 +17,12 @@ namespace Project3.Models
 
         public static string GetImageBaseURLForPoster()
         {
-            return $"{ImageBaseUrl}w342";
+            return $"{ImageBaseUrl}w342/";
         }
 
         public static string GetImageBaseURLForSmallerPoster()
         {
-            return $"{ImageBaseUrl}w154";
+            return $"{ImageBaseUrl}w154/";
         }
 
         public static string GetImageBaseURLForBackground()
@@ -32,7 +32,7 @@ namespace Project3.Models
 
         public static string GetImageBaseURLForProfile()
         {
-            return $"{ImageBaseUrl}w185";
+            return $"{ImageBaseUrl}w185/";
         }
 
         public static string GetYoutubeEmbeddedLink(string key)

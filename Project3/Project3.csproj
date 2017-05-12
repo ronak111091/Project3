@@ -107,6 +107,10 @@
     <Compile Include="Models\TVShowListResult.cs" />
     <Compile Include="Services\MovieService.cs" />
     <Compile Include="Services\TVService.cs" />
+    <Compile Include="ViewModels\HomeViewModel.cs" />
+    <Compile Include="ViewModels\MovieDetailsViewModel.cs" />
+    <Compile Include="ViewModels\MoviesViewModel.cs" />
+    <Compile Include="ViewModels\TVShowsViewModel.cs" />
     <Compile Include="Views\MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
@@ -138,9 +142,7 @@
       <SubType>Designer</SubType>
     </Page>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="ViewModels\" />
-  </ItemGroup>
+  <ItemGroup />
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>
   </PropertyGroup>

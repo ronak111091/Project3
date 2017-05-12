@@ -1,11 +1,63 @@
 ﻿<Page
-    x:Class="Project3.Views.MainPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="using:Project3"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:ViewModels="using:Project3.ViewModels"
+    x:Class="Project3.Views.MainPage"
     mc:Ignorable="d" >
 
-    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"/>
+    <Page.DataContext>
+        <ViewModels:HomeViewModel/>
+    </Page.DataContext>
+
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <Grid Margin="30,50,5,30">
+                <Grid HorizontalAlignment="Right" Height="400" Margin="0,100,0,5" VerticalAlignment="Top" Width="400" Padding="3,0,0,0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="2*"/>
+                        <RowDefinition Height="1*"/>
+                    </Grid.RowDefinitions>
+                    <Image x:Name="image">
+                        <Image.Source>
+                            <BitmapImage UriSource="{Binding imagePath}"></BitmapImage>
+                        </Image.Source>
+                    </Image>
+                    <Grid Grid.Row="1">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="1*"/>
+                            <ColumnDefinition Width="1*"/>
+                        </Grid.ColumnDefinitions>
+                        <Image x:Name="image4"/>
+                        <Image x:Name="image5" Grid.Column="1"/>
+                    </Grid>
+                </Grid>
+                <TextBlock x:Name="textBlock" HorizontalAlignment="Left" Margin="233,10,0,0" TextWrapping="Wrap" Text="{Binding test}" VerticalAlignment="Top"/>
+            </Grid>
+            <Grid Grid.Column="1" Margin="5,50,30,30">
+                <Grid HorizontalAlignment="Left" Height="400" Margin="0,100,0,0" VerticalAlignment="Top" Width="400">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="1*"/>
+                        <RowDefinition Height="2*"/>
+                    </Grid.RowDefinitions>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="1*"/>
+                            <ColumnDefinition Width="1*"/>
+
+                        </Grid.ColumnDefinitions>
+                        <Image x:Name="image2"/>
+                        <Image x:Name="image3" Grid.Column="1"/>
+                    </Grid>
+                    <Image x:Name="image1" Grid.Row="1"/>
+                </Grid>
+            </Grid>
+        </Grid>
+    </Grid>
 </Page>
