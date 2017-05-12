@@ -21,64 +21,65 @@ namespace Project3.Services
         public const string searchUrl = "https://api.themoviedb.org/3/search/movie/";
         public const string apiKeyValue = "api_key=bb985894bb5421e085e1ded7b8feb337";
 
-        public async Task<MovieListResult> GetPopularMovies(int page)
+        public MovieListResult GetPopularMovies(int page)
         {
             //string uri = baseUrl + "popular" + "?" + apiKeyValue + "&language=en-US&page=" + page;
             string url = $"{baseUrl}popular?{apiKeyValue}&language=en-US&page={page}";
-            return await FetchMovieList(url);
+            return FetchMovieList(url);
+
         }
 
-        public async Task<MovieListResult> GetNowPlayingMovies(int page)
+        public MovieListResult GetNowPlayingMovies(int page)
         {
             string url = $"{baseUrl}now_playing?{apiKeyValue}&language=en-US&page={page}";
-            return await FetchMovieList(url);
+            return FetchMovieList(url);
         }
 
-        public async Task<MovieListResult> GetTopRatedMovies(int page)
+        public MovieListResult GetTopRatedMovies(int page)
         {
             string url = $"{baseUrl}top_rated?{apiKeyValue}&language=en-US&page={page}";
-            return await FetchMovieList(url);
+            return FetchMovieList(url);
         }
 
-        public async Task<MovieListResult> GetUpcomingMovies(int page)
+        public MovieListResult GetUpcomingMovies(int page)
         {
             string url = $"{baseUrl}upcoming?{apiKeyValue}&language=en-US&page={page}";
-            return await FetchMovieList(url);
+            return FetchMovieList(url);
         }
 
-        public async Task<MovieListResult> FetchMovieList(string url)
+        public MovieListResult FetchMovieList(string url)
         {
             MovieListResult result = null;
             using (var client = new HttpClient())
             {
-                var stream = await client.GetStreamAsync(url);
-                var serializer = new DataContractJsonSerializer(typeof(MovieListResult));
-                result = (MovieListResult)serializer.ReadObject(stream);
+                var response = client.GetAsync(url).Result;
+                var content = response.Content.ReadAsStringAsync().Result;
+                result = Newtonsoft.Json.JsonConvert.DeserializeObject<MovieListResult>(content);
             }
             return result;
         }
 
 
         //method can be moved to view model class
-        public async Task<MovieDetails> GetCompleteMovieDetails(int id)
+        public MovieDetails GetCompleteMovieDetails(int id)
         {
             MovieDetails movieDetails = new MovieDetails();
-            await GetMovieDetails(id, movieDetails);
-            await GetMovieCredits(id, movieDetails);
-            await GetMovieKeywords(id, movieDetails);
-            await GetMovieVideo(id, movieDetails);
-            await GetMovieReviews(id, movieDetails);
-            await GetSimilarMovies(id, movieDetails);
+            GetMovieDetails(id, movieDetails);
+            GetMovieCredits(id, movieDetails);
+            GetMovieKeywords(id, movieDetails);
+            GetMovieVideo(id, movieDetails);
+            GetMovieReviews(id, movieDetails);
+            GetSimilarMovies(id, movieDetails);
             return movieDetails;
         }
 
-        public async Task GetMovieDetails(int id, MovieDetails movieDetails)
+        public void GetMovieDetails(int id, MovieDetails movieDetails)
         {           
             using (var client = new HttpClient())
             {
                 string url = $"{baseUrl}{id}?{apiKeyValue}&language=en-US";
-                var response = await client.GetAsync(url);
-                var content = await response.Content.ReadAsStringAsync();
+                var response = client.GetAsync(url).Result;
+                var content =  response.Content.ReadAsStringAsync().Result;
                 dynamic result = Newtonsoft.Json.JsonConvert.DeserializeObject(content);
                 movieDetails.backdrop_path = result.backdrop_path;
                 movieDetails.budget = result.budget;
@@ -106,26 +107,26 @@ namespace Project3.Services
             }
         }
 
-        public async Task GetMovieCredits(int id, MovieDetails movieDetails)
+        public void GetMovieCredits(int id, MovieDetails movieDetails)
         {
             Credits credits = null;
             using (var client = new HttpClient())
             {
                 string url = $"{baseUrl}{id}/credits?{apiKeyValue}";
-                var stream = await client.GetStreamAsync(url);
-                var serializer = new DataContractJsonSerializer(typeof(Credits));
-                credits = (Credits)serializer.ReadObject(stream);
+                var response = client.GetAsync(url).Result;
+                var content = response.Content.ReadAsStringAsync().Result;
+                credits = Newtonsoft.Json.JsonConvert.DeserializeObject<Credits>(content);
             }
             movieDetails.credits = credits;
         }
 
-        public async Task GetMovieKeywords(int id, MovieDetails movieDetails)
+        public void GetMovieKeywords(int id, MovieDetails movieDetails)
         {
             using (var client = new HttpClient())
             {
                 string url = $"{baseUrl}{id}/keywords?{apiKeyValue}";
-                var response = await client.GetAsync(url);
-                var content = await response.Content.ReadAsStringAsync();
+                var response = client.GetAsync(url).Result;
+                var content = response.Content.ReadAsStringAsync().Result;
                 dynamic result = Newtonsoft.Json.JsonConvert.DeserializeObject(content);
                 //can be moved to view model
                 foreach(dynamic item in result.keywords)
@@ -135,13 +136,13 @@ namespace Project3.Services
             }
         }
 
-        public async Task GetMovieVideo(int id, MovieDetails movieDetails)
+        public void GetMovieVideo(int id, MovieDetails movieDetails)
         {
             using (var client = new HttpClient())
             {
                 string url = $"{baseUrl}{id}/videos?{apiKeyValue}";
-                var response = await client.GetAsync(url);
-                var content = await response.Content.ReadAsStringAsync();
+                var response = client.GetAsync(url).Result;
+                var content = response.Content.ReadAsStringAsync().Result;
                 dynamic result = Newtonsoft.Json.JsonConvert.DeserializeObject(content);
                 foreach (dynamic item in result.results)
                 {
@@ -155,13 +156,13 @@ namespace Project3.Services
             }
         }
 
-        public async Task GetMovieReviews(int id, MovieDetails movieDetails)
+        public void GetMovieReviews(int id, MovieDetails movieDetails)
         {
             using (var client = new HttpClient())
             {
                 string url = $"{baseUrl}{id}/reviews?{apiKeyValue}";
-                var response = await client.GetAsync(url);
-                var content = await response.Content.ReadAsStringAsync();
+                var response = client.GetAsync(url).Result;
+                var content =  response.Content.ReadAsStringAsync().Result;
                 JObject jObject = JObject.Parse(content);
                 IList<JToken> jTokenList = jObject["results"].Children().ToList();
                 List<Review> reviews = new List<Review>();
@@ -174,13 +175,13 @@ namespace Project3.Services
             }
         }
 
-        public async Task GetSimilarMovies(int id, MovieDetails movieDetails)
+        public void GetSimilarMovies(int id, MovieDetails movieDetails)
         {
             using (var client = new HttpClient())
             {
                 string url = $"{baseUrl}{id}/similar?{apiKeyValue}";
-                var response = await client.GetAsync(url);
-                var content = await response.Content.ReadAsStringAsync();
+                var response = client.GetAsync(url).Result;
+                var content = response.Content.ReadAsStringAsync().Result;
                 JObject jObject = JObject.Parse(content);
                 IList<JToken> jTokenList = jObject["results"].Children().ToList();
                 List<Movie> movies = new List<Movie>();
@@ -193,14 +194,14 @@ namespace Project3.Services
             }
         }
 
-        public async Task<MovieListResult> SearchMovies(string query)
+        public MovieListResult SearchMovies(string query)
         {
             MovieListResult result = null;
             using (var client = new HttpClient())
             {
                 string url = $"{searchUrl}?{apiKeyValue}&language=en-US&query={query}";
-                var response = await client.GetAsync(url);
-                var content = await response.Content.ReadAsStringAsync();
+                var response = client.GetAsync(url).Result;
+                var content = response.Content.ReadAsStringAsync().Result;
                 result = Newtonsoft.Json.JsonConvert.DeserializeObject<MovieListResult>(content);
             }
             return result;

@@ -20,50 +20,50 @@ namespace Project3.Services
         public const string apiKeyValue = "api_key=bb985894bb5421e085e1ded7b8feb337";
         public const string searchUrl = "https://api.themoviedb.org/3/search/tv";
 
-        public async Task<TVShowListResult> GetAiringTodayTVShows(int page)
+        public TVShowListResult GetAiringTodayTVShows(int page)
         {
             string url = $"{baseUrl}airing_today?{apiKeyValue}&language=en-US&page={page}";
-            return await fetchMovieList(url);
+            return fetchMovieList(url);
         }
 
-        public async Task<TVShowListResult> GetOnTheAirTVShows(int page)
+        public TVShowListResult GetOnTheAirTVShows(int page)
         {
             string url = $"{baseUrl}on_the_air?{apiKeyValue}&language=en-US&page={page}";
-            return await fetchMovieList(url);
+            return fetchMovieList(url);
         }
 
-        public async Task<TVShowListResult> GetPopularTVShows(int page)
+        public TVShowListResult GetPopularTVShows(int page)
         {
             string url = $"{baseUrl}popular?{apiKeyValue}&language=en-US&page={page}";
-            return await fetchMovieList(url);
+            return fetchMovieList(url);
         }
 
-        public async Task<TVShowListResult> GetTopRatedTVShows(int page)
+        public TVShowListResult GetTopRatedTVShows(int page)
         {
             string url = $"{baseUrl}top_rated?{apiKeyValue}&language=en-US&page={page}";
-            return await fetchMovieList(url);
+            return fetchMovieList(url);
         }
 
-        public async Task<TVShowListResult> fetchMovieList(string url)
+        public TVShowListResult fetchMovieList(string url)
         {
             TVShowListResult result = null;
             using (var client = new HttpClient())
             {
-                var stream = await client.GetStreamAsync(url);
-                var serializer = new DataContractJsonSerializer(typeof(TVShowListResult));
-                result = (TVShowListResult)serializer.ReadObject(stream);
+                var response = client.GetAsync(url).Result;
+                var content = response.Content.ReadAsStringAsync().Result;
+                result = Newtonsoft.Json.JsonConvert.DeserializeObject<TVShowListResult>(content);
             }
             return result;
         }
 
-        public async Task<TVShowListResult> SearchMovies(string query)
+        public TVShowListResult SearchMovies(string query)
         {
             TVShowListResult result = null;
             using (var client = new HttpClient())
             {
                 string url = $"{searchUrl}?{apiKeyValue}&language=en-US&query={query}";
-                var response = await client.GetAsync(url);
-                var content = await response.Content.ReadAsStringAsync();
+                var response = client.GetAsync(url).Result;
+                var content = response.Content.ReadAsStringAsync().Result;
                 result = Newtonsoft.Json.JsonConvert.DeserializeObject<TVShowListResult>(content);
             }
             return result;

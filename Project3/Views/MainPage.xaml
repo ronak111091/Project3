@@ -26,7 +26,7 @@
                     </Grid.RowDefinitions>
                     <Image x:Name="image">
                         <Image.Source>
-                            <BitmapImage UriSource="{Binding imagePath}"></BitmapImage>
+                            <BitmapImage UriSource="{Binding movies[0].backdrop_path}"></BitmapImage>
                         </Image.Source>
                     </Image>
                     <Grid Grid.Row="1">
@@ -34,11 +34,19 @@
                             <ColumnDefinition Width="1*"/>
                             <ColumnDefinition Width="1*"/>
                         </Grid.ColumnDefinitions>
-                        <Image x:Name="image4"/>
-                        <Image x:Name="image5" Grid.Column="1"/>
+                        <Image x:Name="image4">
+                            <Image.Source>
+                                <BitmapImage UriSource="{Binding movies[1].backdrop_path}"></BitmapImage>
+                            </Image.Source>
+                        </Image>
+                        <Image x:Name="image5" Grid.Column="1">
+                            <Image.Source>
+                                <BitmapImage UriSource="{Binding movies[2].backdrop_path}"></BitmapImage>
+                            </Image.Source>
+                        </Image>
                     </Grid>
                 </Grid>
-                <TextBlock x:Name="textBlock" HorizontalAlignment="Left" Margin="233,10,0,0" TextWrapping="Wrap" Text="{Binding test}" VerticalAlignment="Top"/>
+                <TextBlock x:Name="textBlock" HorizontalAlignment="Left" Margin="233,10,0,0" TextWrapping="Wrap" Text="{Binding test}" VerticalAlignment="Top" d:IsHidden="True"/>
             </Grid>
             <Grid Grid.Column="1" Margin="5,50,30,30">
                 <Grid HorizontalAlignment="Left" Height="400" Margin="0,100,0,0" VerticalAlignment="Top" Width="400">
@@ -52,10 +60,22 @@
                             <ColumnDefinition Width="1*"/>
 
                         </Grid.ColumnDefinitions>
-                        <Image x:Name="image2"/>
-                        <Image x:Name="image3" Grid.Column="1"/>
+                        <Image x:Name="image2">
+                            <Image.Source>
+                                <BitmapImage UriSource="{Binding tVShows[1].backdrop_path}"></BitmapImage>
+                            </Image.Source>
+                        </Image>
+                        <Image x:Name="image3" Grid.Column="1">
+                            <Image.Source>
+                                <BitmapImage UriSource="{Binding tVShows[2].backdrop_path}"></BitmapImage>
+                            </Image.Source>
+                        </Image>
                     </Grid>
-                    <Image x:Name="image1" Grid.Row="1"/>
+                    <Image x:Name="image1" Grid.Row="1">
+                        <Image.Source>
+                            <BitmapImage UriSource="{Binding tVShows[0].backdrop_path}"></BitmapImage>
+                        </Image.Source>
+                    </Image>
                 </Grid>
             </Grid>
         </Grid>
