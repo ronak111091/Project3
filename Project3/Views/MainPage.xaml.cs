@@ -25,6 +25,37 @@ namespace Project3.Views
         public MainPage()
         {
             this.InitializeComponent();
+            MainContent.Navigate(typeof(Home));
+            
+            Loaded += (s, e) =>
+            {
+                //write logic here
+                HomeItem.IsSelected = true;
+            };
+        }
+
+        private void HamburgerButton_Click(object sender, RoutedEventArgs e)
+        {
+            HamburgerSplitView.IsPaneOpen = !HamburgerSplitView.IsPaneOpen;
+        }
+
+        private void HamburgerListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (HomeItem.IsSelected)
+            {
+                MainContent.Navigate(typeof(Home));
+                
+            }
+            else if (MoviesItem.IsSelected)
+            {
+                MainContent.Navigate(typeof(Movies));
+                
+            }
+            else if (TVShowsItem.IsSelected)
+            {
+                MainContent.Navigate(typeof(TVShows));
+                
+            }
         }
     }
 }
