@@ -5,6 +5,7 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:ViewModels="using:Project3.ViewModels"
+    xmlns:data="using:Project3.Models"
     x:Class="Project3.Views.Movies"
     mc:Ignorable="d">
 
@@ -12,7 +13,73 @@
         <ViewModels:MoviesViewModel/>
     </Page.DataContext>
 
+    <Page.Resources>
+        <DataTemplate x:DataType="data:Movie" x:Key="MovieListDataTemplate">
+            <StackPanel Orientation="Horizontal" Width="483" Height="278">
+                <Image Width="185" Height="278" HorizontalAlignment="Left" VerticalAlignment="Top">
+                    <Image.Source>
+                        <BitmapImage UriSource="{Binding poster_path}"></BitmapImage>
+                    </Image.Source>
+                </Image>
+                <StackPanel>
+                    <StackPanel>
+                        <TextBlock Text="{Binding title}"></TextBlock>
+                        <TextBlock Text="{Binding vote_average}"></TextBlock>
+                    </StackPanel>
+                    <StackPanel>
+                        <TextBlock Text="{Binding release_date}"></TextBlock>
+                        
+                    </StackPanel>
+                    <TextBlock Text="{Binding overview}"></TextBlock>
+                    <TextBlock Text="{Binding genres}"></TextBlock>
+                </StackPanel>
+            </StackPanel>
+        </DataTemplate>
+
+        <ItemsPanelTemplate x:Key="MovieListPanelTemplate">
+            <StackPanel Orientation="Horizontal"></StackPanel>
+        </ItemsPanelTemplate>
+    </Page.Resources>
+
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-        <TextBlock Text="This the movies page!"/>
+        <ScrollViewer HorizontalScrollMode="Disabled">
+            <StackPanel ScrollViewer.VerticalScrollBarVisibility="Auto">
+                <TextBlock Text="Movies" FontSize="36"></TextBlock>
+
+                <TextBlock Text="Popular" FontSize="20"></TextBlock>
+                <ScrollViewer VerticalScrollMode="Disabled" HorizontalScrollBarVisibility="Visible" VerticalScrollBarVisibility="Disabled">
+                    <GridView Name="PopularMoviesList" ItemsSource="{Binding popularMovies}" 
+                      IsItemClickEnabled="True" ItemClick="PopularMoviesList_ItemClick"
+                      ItemTemplate="{StaticResource MovieListDataTemplate}"
+                      ItemsPanel="{StaticResource MovieListPanelTemplate}" Background="{ThemeResource AppBarBackground}">
+                    </GridView>
+                </ScrollViewer>
+
+                <TextBlock Text="Top Rated" FontSize="20"></TextBlock>
+                <ScrollViewer VerticalScrollMode="Disabled" HorizontalScrollBarVisibility="Visible" VerticalScrollBarVisibility="Disabled">
+                    <GridView Name="TopRatedMoviesList" ItemsSource="{Binding topRatedMovies}" 
+                      IsItemClickEnabled="True" ItemClick="TopRatedMoviesList_ItemClick"
+                      ItemTemplate="{StaticResource MovieListDataTemplate}"
+                      ItemsPanel="{StaticResource MovieListPanelTemplate}" ScrollViewer.HorizontalScrollBarVisibility="Visible" ScrollViewer.VerticalScrollBarVisibility="Auto">
+                    </GridView>
+                </ScrollViewer>
+                <TextBlock Text="Up Coming" FontSize="20"></TextBlock>
+                <ScrollViewer VerticalScrollMode="Disabled" HorizontalScrollBarVisibility="Visible" VerticalScrollBarVisibility="Disabled">
+                    <GridView Name="UpComingMoviesList" ItemsSource="{Binding upcomingMovies}" 
+                      IsItemClickEnabled="True" ItemClick="UpComingMoviesList_ItemClick"
+                      ItemTemplate="{StaticResource MovieListDataTemplate}"
+                      ItemsPanel="{StaticResource MovieListPanelTemplate}" ScrollViewer.HorizontalScrollBarVisibility="Visible" ScrollViewer.VerticalScrollBarVisibility="Auto">
+                    </GridView>
+                </ScrollViewer>
+                <TextBlock Text="Now Playing" FontSize="20"></TextBlock>
+                <ScrollViewer VerticalScrollMode="Disabled" HorizontalScrollBarVisibility="Visible" VerticalScrollBarVisibility="Disabled">
+                    <GridView Name="NowPlayingMoviesList" ItemsSource="{Binding nowPlayingMovies}" 
+                      IsItemClickEnabled="True" ItemClick="NowPlayingMoviesList_ItemClick"
+                      ItemTemplate="{StaticResource MovieListDataTemplate}"
+                      ItemsPanel="{StaticResource MovieListPanelTemplate}" ScrollViewer.HorizontalScrollBarVisibility="Visible" ScrollViewer.VerticalScrollBarVisibility="Auto">
+                    </GridView>
+                </ScrollViewer>
+            </StackPanel>
+        </ScrollViewer>
     </Grid>
 </Page>

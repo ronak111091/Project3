@@ -53,39 +53,43 @@
 
 
     <!--<Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">-->
-    <Grid Margin="0,50,0,0">
-        <!--<Grid>-->
-        <!--<Ellipse Fill="Yellow"></Ellipse>-->
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="1*"/>
-            <ColumnDefinition Width="1*"/>
-        </Grid.ColumnDefinitions>
+    <ScrollViewer HorizontalScrollMode="Disabled">
         <Grid>
-            <StackPanel>
-                <TextBlock Text="In Theaters" FontSize="36" HorizontalAlignment="Left" Canvas.ZIndex="1"></TextBlock>
-                <ListView Name="InTheaterMovieList" ItemsSource="{Binding movies}"
+            <!--<Grid>-->
+            <!--<Ellipse Fill="Yellow"></Ellipse>-->
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="1*"/>
+            </Grid.ColumnDefinitions>
+
+            <Grid>
+                <StackPanel>
+                    <TextBlock Text="In Theaters" FontSize="36" HorizontalAlignment="Left" Canvas.ZIndex="1"></TextBlock>
+                    <ListView Name="InTheaterMovieList" ItemsSource="{Binding movies}"
                       ItemClick="InTheaterMovieList_ItemClick"
                       IsItemClickEnabled="True"
                       ItemTemplate="{StaticResource MovieListDataTemplate}" 
                       HorizontalAlignment="Center" Width="500" ScrollViewer.VerticalScrollBarVisibility="Auto" ShowsScrollingPlaceholders="True">
 
-                </ListView>
-            </StackPanel>
-           
-        </Grid>
-        <Grid Grid.Column="1">
-            <StackPanel>
-                <TextBlock Text="On TV" FontSize="36" HorizontalAlignment="Left"></TextBlock>
-                <ListView Name="OnTVShowList"
+                    </ListView>
+                </StackPanel>
+
+            </Grid>
+            <Grid Grid.Column="1">
+                <StackPanel>
+                    <TextBlock Text="On TV" FontSize="36" HorizontalAlignment="Left"></TextBlock>
+                    <ListView Name="OnTVShowList"
                       ItemClick="OnTVShowList_ItemClick"
                       IsItemClickEnabled="True"
                       ItemTemplate="{StaticResource TVShowListDataTemplate}" 
                       HorizontalAlignment="Center" Width="500" ItemsSource="{Binding tVShows}" ScrollViewer.VerticalScrollBarVisibility="Auto" ShowsScrollingPlaceholders="True"/>
-            </StackPanel>
-           
-        </Grid>
-        <!--</Grid>-->
-    </Grid>
+                </StackPanel>
 
+            </Grid>
+            <!--</Grid>-->
+        </Grid>
+
+    </ScrollViewer>
+    
 
 </Page>

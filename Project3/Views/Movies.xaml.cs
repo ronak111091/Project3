@@ -26,5 +26,25 @@ namespace Project3.Views
         {
             this.InitializeComponent();
         }
+
+        private void PopularMoviesList_ItemClick(object sender, ItemClickEventArgs e)
+        {
+
+        }
+
+        private void NowPlayingMoviesList_ItemClick(object sender, ItemClickEventArgs e)
+        {
+
+        }
+
+        private void UpComingMoviesList_ItemClick(object sender, ItemClickEventArgs e)
+        {
+
+        }
+
+        private void TopRatedMoviesList_ItemClick(object sender, ItemClickEventArgs e)
+        {
+
+        }
     }
 }
