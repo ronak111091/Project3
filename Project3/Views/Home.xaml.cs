@@ -26,5 +26,15 @@ namespace Project3.Views
         {
             this.InitializeComponent();
         }
+
+        private void InTheaterMovieList_ItemClick(object sender, ItemClickEventArgs e)
+        {
+
+        }
+
+        private void OnTVShowList_ItemClick(object sender, ItemClickEventArgs e)
+        {
+
+        }
     }
 }

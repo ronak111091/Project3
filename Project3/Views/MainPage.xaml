@@ -21,7 +21,7 @@
 
         </RelativePanel>
         <SplitView Name="HamburgerSplitView" DisplayMode="CompactOverlay" OpenPaneLength="200"
-                   CompactPaneLength="56" HorizontalAlignment="Left" Grid.Row="1">
+                   CompactPaneLength="56" Grid.Row="1">
             <SplitView.Pane>
                 <!--use list box control-->
                 <ListBox SelectionMode="Single" Name="HamburgerListBox" SelectionChanged="HamburgerListBox_SelectionChanged">
@@ -47,9 +47,7 @@
             </SplitView.Pane>
             <SplitView.Content>
                 <!--<TextBlock Name="ResultTextBlock" />-->
-                <Frame Name="MainContent">
-                    
-                </Frame>
+                <Frame Name="MainContent"/>
             </SplitView.Content>
         </SplitView>
         <!---->
