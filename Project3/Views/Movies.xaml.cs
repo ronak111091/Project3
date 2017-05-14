@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Project3.Models;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -29,22 +30,30 @@ namespace Project3.Views
 
         private void PopularMoviesList_ItemClick(object sender, ItemClickEventArgs e)
         {
-
+            NavigateToMovieDetails(sender, e);
         }
 
         private void NowPlayingMoviesList_ItemClick(object sender, ItemClickEventArgs e)
         {
-
+            NavigateToMovieDetails(sender, e);
         }
 
         private void UpComingMoviesList_ItemClick(object sender, ItemClickEventArgs e)
         {
-
+            NavigateToMovieDetails(sender, e);
         }
 
         private void TopRatedMoviesList_ItemClick(object sender, ItemClickEventArgs e)
         {
-
+            NavigateToMovieDetails(sender, e);
         }
+
+        private void NavigateToMovieDetails(object sender, ItemClickEventArgs e)
+        {
+            var movie = (Movie)e.ClickedItem;
+            App.movieId = movie.id;
+            Frame.Navigate(typeof(MovieDetails));
+        }
+
     }
 }

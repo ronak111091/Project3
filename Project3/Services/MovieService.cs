@@ -61,7 +61,7 @@ namespace Project3.Services
 
 
         //method can be moved to view model class
-        public MovieDetails GetCompleteMovieDetails(int id)
+        public MovieDetails GetCompleteMovieDetails(string id)
         {
             MovieDetails movieDetails = new MovieDetails();
             GetMovieDetails(id, movieDetails);
@@ -73,7 +73,7 @@ namespace Project3.Services
             return movieDetails;
         }
 
-        public void GetMovieDetails(int id, MovieDetails movieDetails)
+        public void GetMovieDetails(string id, MovieDetails movieDetails)
         {           
             using (var client = new HttpClient())
             {
@@ -85,7 +85,7 @@ namespace Project3.Services
                 movieDetails.budget = result.budget;
                 foreach (dynamic item in result.genres)
                 {
-                    movieDetails.genres.Add(item.name);
+                    movieDetails.genres.Add((string)item.name);
                 }
                 movieDetails.homepage = result.homepage;
                 movieDetails.id = result.id;
@@ -96,7 +96,7 @@ namespace Project3.Services
                 movieDetails.poster_path = result.poster_path;
                 foreach(dynamic item in result.production_companies)
                 {
-                    movieDetails.production_companies.Add(item.name);
+                    movieDetails.production_companies.Add((string)item.name);
                 }
                 movieDetails.release_date = result.release_date;
                 movieDetails.revenue = result.revenue;
@@ -107,7 +107,7 @@ namespace Project3.Services
             }
         }
 
-        public void GetMovieCredits(int id, MovieDetails movieDetails)
+        public void GetMovieCredits(string id, MovieDetails movieDetails)
         {
             Credits credits = null;
             using (var client = new HttpClient())
@@ -120,7 +120,7 @@ namespace Project3.Services
             movieDetails.credits = credits;
         }
 
-        public void GetMovieKeywords(int id, MovieDetails movieDetails)
+        public void GetMovieKeywords(string id, MovieDetails movieDetails)
         {
             using (var client = new HttpClient())
             {
@@ -131,12 +131,12 @@ namespace Project3.Services
                 //can be moved to view model
                 foreach(dynamic item in result.keywords)
                 {
-                    movieDetails.keywords.Add(item.name);
+                    movieDetails.keywords.Add((string)item.name);
                 }
             }
         }
 
-        public void GetMovieVideo(int id, MovieDetails movieDetails)
+        public void GetMovieVideo(string id, MovieDetails movieDetails)
         {
             using (var client = new HttpClient())
             {
@@ -147,7 +147,7 @@ namespace Project3.Services
                 foreach (dynamic item in result.results)
                 {
                     //can be moved to view model?
-                    if ("Youtube".Equals(item.site) && item.site.Equals("Trailer"))
+                    if ("Youtube".Equals((string)item.site) && "Trailer".Equals((string)item.type))
                     {
                         movieDetails.youtube_link = "https://www.youtube.com/embed/"+item.key;
                         break;
@@ -156,7 +156,7 @@ namespace Project3.Services
             }
         }
 
-        public void GetMovieReviews(int id, MovieDetails movieDetails)
+        public void GetMovieReviews(string id, MovieDetails movieDetails)
         {
             using (var client = new HttpClient())
             {
@@ -175,7 +175,7 @@ namespace Project3.Services
             }
         }
 
-        public void GetSimilarMovies(int id, MovieDetails movieDetails)
+        public void GetSimilarMovies(string id, MovieDetails movieDetails)
         {
             using (var client = new HttpClient())
             {

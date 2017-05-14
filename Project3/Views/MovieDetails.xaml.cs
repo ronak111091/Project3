@@ -1,4 +1,4 @@
-﻿using Project3.Models;
+﻿using Project3.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -21,28 +21,22 @@ namespace Project3.Views
     /// <summary>
     /// An empty page that can be used on its own or navigated to within a Frame.
     /// </summary>
-    public sealed partial class Home : Page
+    public sealed partial class MovieDetails : Page
     {
-        public Home()
+        public MovieDetails()
         {
             this.InitializeComponent();
         }
 
-        private void InTheaterMovieList_ItemClick(object sender, ItemClickEventArgs e)
+        protected override void OnNavigatedTo(NavigationEventArgs e)
         {
-            NavigateToMovieDetails(sender, e);
-        }
-
-        private void OnTVShowList_ItemClick(object sender, ItemClickEventArgs e)
-        {
-
-        }
-
-        private void NavigateToMovieDetails(object sender, ItemClickEventArgs e)
-        {
-            var movie = (Movie)e.ClickedItem;
-            App.movieId = movie.id;
-            Frame.Navigate(typeof(MovieDetails));
+            base.OnNavigatedTo(e);
+            if (!string.IsNullOrEmpty(App.movieId))
+            {
+                var movieId = App.movieId;
+                MovieDetailsViewModel vm = new MovieDetailsViewModel(movieId);
+                this.DataContext = vm;
+            }
         }
     }
 }

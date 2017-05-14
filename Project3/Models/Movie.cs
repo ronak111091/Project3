@@ -29,7 +29,7 @@ namespace Project3.Models
                 return UtilService.getGenres(genre_ids);
             }
         }
-        public int id { get; set; }
+        public string id { get; set; }
         public string original_title { get; set; }
         public string original_language { get; set; }
         public string title { get; set; }
