@@ -6,9 +6,239 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:ViewModels="using:Project3.ViewModels"
     x:Class="Project3.Views.MovieDetails"
+    xmlns:data="using:Project3.Models"
     mc:Ignorable="d">
 
-    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-        <TextBlock Text="{Binding movieDetails.original_title}"></TextBlock>
+    <Page.Resources>
+        <DataTemplate x:DataType="data:Cast" x:Key="CastListDataTemplate">
+            <StackPanel Orientation="Vertical" Width="160" Height="325">
+                <Image Width="150" Height="225" HorizontalAlignment="Center" VerticalAlignment="Center">
+                    <Image.Source>
+                        <BitmapImage UriSource="{Binding profile_path}"></BitmapImage>
+                    </Image.Source>
+                </Image>
+                <TextBlock Text="{Binding name}" FontSize="24" TextWrapping="Wrap"></TextBlock>
+                <TextBlock Text="{Binding character}" FontSize="16" TextWrapping="Wrap"></TextBlock>
+            </StackPanel>
+        </DataTemplate>
+        <ItemsPanelTemplate x:Key="ListPanelTemplate">
+            <StackPanel Orientation="Horizontal"></StackPanel>
+        </ItemsPanelTemplate>
+
+        <DataTemplate x:DataType="data:StringValue" x:Key="StringListDataTemplate">
+            <Border Background="Aqua">
+                <TextBlock Text="{Binding Value}" TextWrapping="Wrap"></TextBlock>
+            </Border>
+        </DataTemplate>
+
+        <DataTemplate x:DataType="data:Review" x:Key="ReviewsDataTemplate">
+            <StackPanel Margin="0,10">
+                <Border Background="{ThemeResource AppBarBackground}">
+                    <StackPanel>
+                        <TextBlock Text="{Binding reviewBy}" FontSize="24" TextWrapping="Wrap"></TextBlock>
+                        <TextBlock Text="{Binding author}" FontSize="16" TextWrapping="Wrap"></TextBlock>
+                    </StackPanel>
+                </Border>
+                <Border Background="{ThemeResource AppBarBorderThemeBrush}">
+                    <TextBlock Text="{Binding content}" FontSize="16" TextWrapping="Wrap"></TextBlock>
+                </Border>
+            </StackPanel>
+        </DataTemplate>
+
+        <DataTemplate x:DataType="data:Movie" x:Key="MovieListDataTemplate">
+            <StackPanel Orientation="Vertical" Width="160" Height="300">
+                <Image Width="150" Height="225" HorizontalAlignment="Center" VerticalAlignment="Center">
+                    <Image.Source>
+                        <BitmapImage UriSource="{Binding poster_path}"></BitmapImage>
+                    </Image.Source>
+                </Image>
+                <StackPanel>
+                    <StackPanel>
+                        <TextBlock Text="{Binding title}" TextWrapping="Wrap"></TextBlock>
+                        <!--<TextBlock Text="{Binding vote_average}" TextWrapping="Wrap"></TextBlock>-->
+                        <RelativePanel>
+                            <TextBlock Name="Vote" FontSize="14" Text="{Binding vote_average}" RelativePanel.AlignBottomWithPanel="True" RelativePanel.AlignLeftWithPanel="True"></TextBlock>
+                            <TextBlock Text="&#xE0B4;" FontFamily="Segoe MDL2 Assets" RelativePanel.AlignBottomWithPanel="True" RelativePanel.RightOf="Vote" Margin="0,0,0,3" FontSize="14"/>
+                        </RelativePanel>
+                    </StackPanel>
+
+                </StackPanel>
+            </StackPanel>
+        </DataTemplate>
+    </Page.Resources>
+
+    <Grid>
+        <!--<Image Stretch="UniformToFill">
+            <Image.Source>
+                <BitmapImage UriSource="{Binding movieDetails.backdrop_path}"></BitmapImage>
+            </Image.Source>
+        </Image>-->
+        <Grid.Background>
+            <ImageBrush Opacity="0.3">
+                <ImageBrush.ImageSource>
+                    <BitmapImage UriSource="{Binding movieDetails.backdrop_path}"></BitmapImage>
+                </ImageBrush.ImageSource>
+            </ImageBrush>
+        </Grid.Background>
+        <ScrollViewer>
+            <Grid>
+                <Grid Margin="250,50">
+                    <!--<TextBlock Text="{Binding movieDetails.title}"></TextBlock>-->
+                    <StackPanel>
+                        <StackPanel Orientation="Horizontal">
+                            <Image Width="342" Height="506" HorizontalAlignment="Center" VerticalAlignment="Top">
+                                <Image.Source>
+                                    <BitmapImage UriSource="{Binding movieDetails.poster_path}"></BitmapImage>
+                                </Image.Source>
+                            </Image>
+                            <StackPanel Width="435" Margin="20,0,0,0">
+                                <TextBlock Text="{Binding movieDetails.title}" FontSize="36" Margin="0,20,0,10" TextWrapping="Wrap"></TextBlock>
+                                <RelativePanel>
+                                    <TextBlock  Text="{Binding movieDetails.vote_average}" Name="Vote" FontSize="18" TextWrapping="Wrap"/>
+                                    <TextBlock Text="&#xE0B4;" FontFamily="Segoe MDL2 Assets" RelativePanel.RightOf="Vote" Margin="0,3,0,0" FontSize="18" TextWrapping="Wrap"/>
+                                    <Button x:Name="TrailerBtn" Content="Play Trailer" Click="TrailerBtn_Click" RelativePanel.AlignRightWithPanel="True"/>
+                                </RelativePanel>
+                                <TextBlock Text="Overview" FontSize="24" Margin="0,20,0,10" TextWrapping="Wrap" ></TextBlock>
+                                <TextBlock Text="{Binding movieDetails.overview}" FontSize="16" TextWrapping="Wrap"></TextBlock>
+                                <TextBlock Text="Featured Crew" FontSize="24" Margin="0,20,0,10" TextWrapping="Wrap"></TextBlock>
+                                <StackPanel Orientation="Horizontal">
+                                    <StackPanel>
+                                        <TextBlock FontSize="18" FontWeight="Bold" Text="{Binding crew[0].name}"></TextBlock>
+                                        <TextBlock FontSize="18" Text="{Binding crew[0].job}"></TextBlock>
+                                    </StackPanel>
+                                    <StackPanel Margin="20,0,0,0">
+                                        <TextBlock FontSize="18" FontWeight="Bold" Text="{Binding crew[1].name}"></TextBlock>
+                                        <TextBlock FontSize="18" Text="{Binding crew[1].job}"></TextBlock>
+                                    </StackPanel>
+                                </StackPanel>
+                            </StackPanel>
+                        </StackPanel>
+
+                        <TextBlock Text="Top Billed Cast" FontSize="24" Margin="0,20,0,10" TextWrapping="Wrap"></TextBlock>
+                        <GridView Name="CastGridView" 
+                          ItemsSource="{Binding cast}"
+                          ItemTemplate="{StaticResource CastListDataTemplate}"
+                          ItemsPanel="{StaticResource ListPanelTemplate}">
+
+                        </GridView>
+                        <TextBlock Text="Movie Data" FontSize="24" Margin="0,20,0,6" TextWrapping="Wrap"></TextBlock>
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="1*"/>
+                                <RowDefinition Height="1*"/>
+                                <RowDefinition Height="1*"/>
+                                <RowDefinition Height="1*"/>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="1*"/>
+                                <ColumnDefinition Width="1*"/>
+                                <ColumnDefinition Width="1*"/>
+                            </Grid.ColumnDefinitions>
+                            <Grid>
+                                <StackPanel>
+                                    <TextBlock Text="Status" FontSize="20" Margin="0,10" TextWrapping="Wrap"></TextBlock>
+                                    <TextBlock Text="{Binding movieDetails.status}" FontSize="16" Margin="0,10" TextWrapping="Wrap"></TextBlock>
+                                </StackPanel>
+                            </Grid>
+                            <Grid Grid.Row="1">
+                                <StackPanel>
+                                    <TextBlock Text="Runtime" FontSize="20" Margin="0,10" TextWrapping="Wrap"></TextBlock>
+                                    <TextBlock Text="{Binding movieDetails.runtime}" FontSize="16" Margin="0,10" TextWrapping="Wrap" >mins</TextBlock>
+                                </StackPanel>
+                            </Grid>
+                            <Grid Grid.Row="2">
+                                <StackPanel>
+                                    <TextBlock Text="Revenue" FontSize="20" Margin="0,10" TextWrapping="Wrap">
+                                    </TextBlock>
+                                    <TextBlock Text="{Binding movieDetails.revenue}" FontSize="16" Margin="0,10" TextWrapping="Wrap"></TextBlock>
+                                </StackPanel>
+                            </Grid>
+                            <Grid Grid.Row="3">
+                                <StackPanel>
+                                    <TextBlock Text="Release Date" FontSize="20" Margin="0,10" TextWrapping="Wrap"></TextBlock>
+                                    <TextBlock Text="{Binding movieDetails.release_date}" FontSize="16" Margin="0,10" TextWrapping="Wrap"></TextBlock>
+                                </StackPanel>
+                            </Grid>
+                            <Grid Grid.Column="1">
+                                <StackPanel>
+                                    <TextBlock Text="Original Language" FontSize="20" Margin="0,10" TextWrapping="Wrap"></TextBlock>
+                                    <TextBlock Text="{Binding movieDetails.original_language}" FontSize="16" Margin="0,10" TextWrapping="Wrap"></TextBlock>
+                                </StackPanel>
+                            </Grid>
+                            <Grid Grid.Column="1" Grid.Row="1">
+                                <StackPanel>
+                                    <TextBlock Text="Budget" FontSize="20" Margin="0,10" TextWrapping="Wrap"></TextBlock>
+                                    <TextBlock Text="{Binding movieDetails.budget}" FontSize="16" Margin="0,10" TextWrapping="Wrap"></TextBlock>
+                                </StackPanel>
+                            </Grid>
+                            <Grid Grid.Column="1" Grid.Row="2">
+                                <StackPanel>
+                                    <TextBlock Text="Homepage" FontSize="20" Margin="0,10" TextWrapping="Wrap"></TextBlock>
+                                    <HyperlinkButton NavigateUri="{Binding movieDetails.homepage}" Content="{Binding movieDetails.homepage}" Margin="0,10"></HyperlinkButton>
+                                </StackPanel>
+                            </Grid>
+                            <Grid Grid.Column="1" Grid.Row="3">
+                                <StackPanel>
+                                    <TextBlock Text="IMDB page" FontSize="20" Margin="0,10" TextWrapping="Wrap"></TextBlock>
+                                    <HyperlinkButton NavigateUri="{Binding movieDetails.imdb_link}" Content="{Binding movieDetails.imdb_link}" Margin="0,10"></HyperlinkButton>
+                                </StackPanel>
+                            </Grid>
+                            <Grid Grid.Column="2">
+                                <StackPanel>
+                                    <TextBlock Text="Genres" FontSize="20" Margin="0,10" TextWrapping="Wrap"></TextBlock>
+                                    <GridView 
+                                        ItemsSource="{Binding genres}"
+                                        ItemTemplate="{StaticResource StringListDataTemplate}"
+                                        IsItemClickEnabled="False">
+
+                                    </GridView>
+                                </StackPanel>
+                            </Grid>
+                            <Grid Grid.Column="2" Grid.Row="1" Grid.RowSpan="2">
+                                <StackPanel>
+                                    <TextBlock Text="Keywords" FontSize="20" Margin="0,10" TextWrapping="Wrap"></TextBlock>
+                                    <GridView 
+                                        ItemsSource="{Binding keywords}"
+                                        ItemTemplate="{StaticResource StringListDataTemplate}"
+                                        IsItemClickEnabled="False">
+
+                                    </GridView>
+                                </StackPanel>
+                            </Grid>
+                        </Grid>
+                        <TextBlock Text="Reviews" FontSize="24" Margin="0,20,0,10" TextWrapping="Wrap"></TextBlock>
+                        <ListView ItemsSource="{Binding reviews}"
+                            ItemTemplate="{StaticResource ReviewsDataTemplate}"
+                                  IsItemClickEnabled="False"/>
+                        <TextBlock Text="Similar Movies" FontSize="24" Margin="0,20,0,10" TextWrapping="Wrap"></TextBlock>
+                        <GridView ItemsSource="{Binding similarMovies}"
+                                  IsItemClickEnabled="True" ItemClick="NavigateToMovieDetails"
+                                  ItemTemplate="{StaticResource MovieListDataTemplate}"
+                                  ItemsPanel="{StaticResource ListPanelTemplate}">
+
+                        </GridView>
+                    </StackPanel>
+                </Grid>
+            </Grid>
+        </ScrollViewer>
+        <Popup Name="TrailerPopup" IsOpen="False">
+            <Grid Width="400" Height="200" >
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"></RowDefinition>
+                    <RowDefinition Height="*"></RowDefinition>
+                </Grid.RowDefinitions>
+                <RelativePanel Background="{ThemeResource AppBarBackgroundThemeBrush}">
+                    <TextBlock Name="PopupTitle" RelativePanel.AlignLeftWithPanel="True"></TextBlock>
+                    <Button Name="Close" FontFamily="Segoe MDL2 Assets" Content="&#xE10A;" FontSize="14"
+                    Click="Close_Click" RelativePanel.AlignRightWithPanel="True"/>
+                </RelativePanel>
+                <Grid Grid.Row="1" Background="{ThemeResource AppBarBackground}">
+
+                    <HyperlinkButton NavigateUri="{Binding movieDetails.youtube_link}" Content="Watch it in youtube" HorizontalAlignment="Center"></HyperlinkButton>
+                    <!--<HyperlinkButton NavigateUri="{Binding movieDetails.imdb_link}" Content="{Binding movieDetails.imdb_link}"></HyperlinkButton>-->
+                </Grid>
+            </Grid>
+        </Popup>
+
     </Grid>
 </Page>

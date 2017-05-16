@@ -14,6 +14,14 @@ namespace Project3.Models
         public string id { get; set; }
         public string name { get; set; }
         public int order { get; set; }
-        public string profile_path { get; set; }
+        private string _profile_path;
+        public string profile_path { get
+            {
+                return $"{Constants.GetImageBaseURLForProfile()}{_profile_path}";
+            } set
+            {
+                _profile_path = value;
+            }
+        }
     }
 }

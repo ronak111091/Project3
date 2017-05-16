@@ -26,6 +26,7 @@ namespace Project3.Views
         public MainPage()
         {
             this.InitializeComponent();
+            //BackButton.Visibility = Visibility.Collapsed;
             MainContent.Navigate(typeof(Home));
             
             Loaded += (s, e) =>
@@ -45,18 +46,30 @@ namespace Project3.Views
             if (HomeItem.IsSelected)
             {
                 MainContent.Navigate(typeof(Home));
-                
+                //BackButton.Visibility = Visibility.Collapsed;
+
             }
             else if (MoviesItem.IsSelected)
             {
                 MainContent.Navigate(typeof(Movies));
-                
+                //BackButton.Visibility = Visibility.Collapsed;
+
             }
             else if (TVShowsItem.IsSelected)
             {
                 MainContent.Navigate(typeof(TVShows));
-                
+                //BackButton.Visibility = Visibility.Collapsed;
+
             }
         }
+
+        //private void BackButton_Click(object sender, RoutedEventArgs e)
+        //{
+        //    if (MainContent.CanGoBack)
+        //    {
+        //        MainContent.GoBack();
+        //        //BackButton.Visibility = Visibility.Collapsed;
+        //    }
+        //}
     }
 }

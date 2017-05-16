@@ -27,7 +27,7 @@ namespace Project3.Models
 
         public static string GetImageBaseURLForBackground()
         {
-            return $"{ImageBaseUrl}{BackDropSizeW1280}";
+            return $"{ImageBaseUrl}{BackDropSizeW1280}/";
         }
 
         public static string GetImageBaseURLForProfile()

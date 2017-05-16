@@ -1,4 +1,5 @@
-﻿using Project3.ViewModels;
+﻿using Project3.Models;
+using Project3.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -6,6 +7,7 @@ using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
+using Windows.UI.Core;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
@@ -26,6 +28,7 @@ namespace Project3.Views
         public MovieDetails()
         {
             this.InitializeComponent();
+            //SystemNavigationManager.GetForCurrentView().AppViewBackButtonVisibility = AppViewBackButtonVisibility.Visible;
         }
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
@@ -38,5 +41,28 @@ namespace Project3.Views
                 this.DataContext = vm;
             }
         }
+
+        private void NavigateToMovieDetails(object sender, ItemClickEventArgs e)
+        {
+            var movie = (Movie)e.ClickedItem;
+            App.movieId = movie.id;
+            Frame.Navigate(typeof(MovieDetails));
+        }
+
+        private void Close_Click(object sender, RoutedEventArgs e)
+        {         
+            TrailerPopup.IsOpen = false;
+        }
+
+        private void TrailerBtn_Click(object sender, RoutedEventArgs e)
+        {
+            TrailerPopup.IsOpen = true;
+            var vm = (MovieDetailsViewModel)this.DataContext;
+            PopupTitle.Text = vm.movieDetails.title;
+            TrailerPopup.HorizontalOffset = 400;
+            TrailerPopup.VerticalOffset = 200;
+        }
+
+        
     }
 }

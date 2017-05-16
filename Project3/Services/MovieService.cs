@@ -147,9 +147,10 @@ namespace Project3.Services
                 foreach (dynamic item in result.results)
                 {
                     //can be moved to view model?
-                    if ("Youtube".Equals((string)item.site) && "Trailer".Equals((string)item.type))
+                    if ("YouTube".Equals((string)item.site) && "Trailer".Equals((string)item.type))
                     {
-                        movieDetails.youtube_link = "https://www.youtube.com/embed/"+item.key;
+                        //movieDetails.youtube_link = "https://www.youtube.com/"+item.key;
+                        movieDetails.youtube_link = "https://www.youtube.com/watch?v=" + item.key;                 
                         break;
                     }
                 }

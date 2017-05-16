@@ -12,5 +12,12 @@ namespace Project3.Models
         public string author { get; set; }
         public string content { get; set; }
         public string url { get; set; }
+        public string reviewBy
+        {
+            get
+            {
+                return $"A review By {author}";
+            }
+        }
     }
 }

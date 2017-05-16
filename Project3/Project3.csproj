@@ -103,6 +103,7 @@
     <Compile Include="Models\MovieDetails.cs" />
     <Compile Include="Models\MovieListResult.cs" />
     <Compile Include="Models\Review.cs" />
+    <Compile Include="Models\StringValue.cs" />
     <Compile Include="Models\TVShow.cs" />
     <Compile Include="Models\TVShowListResult.cs" />
     <Compile Include="Services\MovieService.cs" />

@@ -8,7 +8,16 @@ namespace Project3.Models
 {
     public class MovieDetails
     {
-        public string poster_path { get; set; }
+        private string _poster_path;
+        public string poster_path { get
+            {
+                return $"{Constants.GetImageBaseURLForPoster()}{_poster_path}";
+            }
+            set
+            {
+                _poster_path = value;
+            }
+        }
         public string overview { get; set; }
         public string release_date { get; set; }
         public int[] genre_ids { get; set; }
@@ -16,7 +25,16 @@ namespace Project3.Models
         public string original_title { get; set; }
         public string original_language { get; set; }
         public string title { get; set; }
-        public string backdrop_path { get; set; }
+        private string _backdrop_path;
+        public string backdrop_path { get
+            {
+                return $"{Constants.GetImageBaseURLForBackground()}{_backdrop_path}";
+            }
+            set
+            {
+                _backdrop_path = value;
+            }
+        }
         public double vote_average { get; set; }
         public long budget { get; set; }
         public List<string> genres { get; set; } = new List<string>();

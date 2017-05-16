@@ -15,24 +15,34 @@
 
     <Page.Resources>
         <DataTemplate x:DataType="data:Movie" x:Key="MovieListDataTemplate">
-            <StackPanel Orientation="Horizontal" Width="483" Height="278">
+            <StackPanel Orientation="Horizontal" Width="483" Height="278" Margin="15,0,0,0" Background="{ThemeResource AppBarBackground}">
                 <Image Width="185" Height="278" HorizontalAlignment="Left" VerticalAlignment="Top">
                     <Image.Source>
                         <BitmapImage UriSource="{Binding poster_path}"></BitmapImage>
                     </Image.Source>
                 </Image>
-                <StackPanel>
+                <!--<Border Margin="10,0,0,0">
                     <StackPanel>
-                        <TextBlock Text="{Binding title}"></TextBlock>
-                        <TextBlock Text="{Binding vote_average}"></TextBlock>
-                    </StackPanel>
-                    <StackPanel>
-                        <TextBlock Text="{Binding release_date}"></TextBlock>
+                        <TextBlock Text="{Binding title}" TextWrapping="Wrap"></TextBlock>
+                        <TextBlock Text="{Binding vote_average}" ></TextBlock>
                         
+                        <TextBlock Text="{Binding release_date}"></TextBlock>
+                        <TextBlock Text="{Binding overview}" TextWrapping="Wrap"></TextBlock>
+                        <TextBlock Text="{Binding genres}" TextWrapping="Wrap"></TextBlock>
                     </StackPanel>
-                    <TextBlock Text="{Binding overview}"></TextBlock>
-                    <TextBlock Text="{Binding genres}"></TextBlock>
-                </StackPanel>
+                    
+                </Border>-->
+                <RelativePanel Margin="10,10,10,10" Width="298">
+                    <TextBlock Name="Title" Text="{Binding title}" TextWrapping="Wrap" RelativePanel.AlignTopWithPanel="True" FontSize="18"></TextBlock>
+                    <TextBlock Name="ReleaseDate" Text="{Binding release_date}" RelativePanel.Below="Title"></TextBlock>
+
+                    <TextBlock Text="&#xE163;" FontFamily="Segoe MDL2 Assets" FontSize="18" Margin="0,0,0,3" RelativePanel.AlignLeftWithPanel="True"  RelativePanel.LeftOf="ReleaseDate"></TextBlock>
+
+                    <TextBlock Text="{Binding overview}" TextWrapping="Wrap" RelativePanel.Below="Genres" Margin="0,20,0,0" MaxLines="7"></TextBlock>
+                    <TextBlock Name="Genres" Text="{Binding genres}" TextWrapping="Wrap" RelativePanel.Below="ReleaseDate"></TextBlock>
+                    <TextBlock Name="Vote" FontSize="18" Text="{Binding vote_average}" RelativePanel.AlignBottomWithPanel="True" RelativePanel.AlignLeftWithPanel="True"></TextBlock>
+                    <TextBlock Text="&#xE0B4;" FontFamily="Segoe MDL2 Assets" RelativePanel.AlignBottomWithPanel="True" RelativePanel.RightOf="Vote" Margin="0,0,0,3" FontSize="18"/>
+                </RelativePanel>
             </StackPanel>
         </DataTemplate>
 
@@ -41,42 +51,42 @@
         </ItemsPanelTemplate>
     </Page.Resources>
 
-    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+    <Grid>
         <ScrollViewer HorizontalScrollMode="Disabled">
-            <StackPanel ScrollViewer.VerticalScrollBarVisibility="Auto">
-                <TextBlock Text="Movies" FontSize="36"></TextBlock>
+            <StackPanel Margin="20,0,0,0">
+                <TextBlock Text="Movies" FontSize="36" TextWrapping="Wrap"></TextBlock>
 
-                <TextBlock Text="Popular" FontSize="20"></TextBlock>
+                <TextBlock Text="Popular" FontSize="28" TextWrapping="Wrap" Margin="0,20,0,10"></TextBlock>
                 <ScrollViewer VerticalScrollMode="Disabled" HorizontalScrollBarVisibility="Visible" VerticalScrollBarVisibility="Disabled">
                     <GridView Name="PopularMoviesList" ItemsSource="{Binding popularMovies}" 
                       IsItemClickEnabled="True" ItemClick="PopularMoviesList_ItemClick"
                       ItemTemplate="{StaticResource MovieListDataTemplate}"
-                      ItemsPanel="{StaticResource MovieListPanelTemplate}" Background="{ThemeResource AppBarBackground}">
+                      ItemsPanel="{StaticResource MovieListPanelTemplate}">
                     </GridView>
                 </ScrollViewer>
 
-                <TextBlock Text="Top Rated" FontSize="20"></TextBlock>
+                <TextBlock Text="Top Rated" FontSize="28" TextWrapping="Wrap" Margin="0,20,0,10"></TextBlock>
                 <ScrollViewer VerticalScrollMode="Disabled" HorizontalScrollBarVisibility="Visible" VerticalScrollBarVisibility="Disabled">
                     <GridView Name="TopRatedMoviesList" ItemsSource="{Binding topRatedMovies}" 
                       IsItemClickEnabled="True" ItemClick="TopRatedMoviesList_ItemClick"
                       ItemTemplate="{StaticResource MovieListDataTemplate}"
-                      ItemsPanel="{StaticResource MovieListPanelTemplate}" ScrollViewer.HorizontalScrollBarVisibility="Visible" ScrollViewer.VerticalScrollBarVisibility="Auto">
+                      ItemsPanel="{StaticResource MovieListPanelTemplate}">
                     </GridView>
                 </ScrollViewer>
-                <TextBlock Text="Up Coming" FontSize="20"></TextBlock>
+                <TextBlock Text="Up Coming" FontSize="28" TextWrapping="Wrap" Margin="0,20,0,10"></TextBlock>
                 <ScrollViewer VerticalScrollMode="Disabled" HorizontalScrollBarVisibility="Visible" VerticalScrollBarVisibility="Disabled">
                     <GridView Name="UpComingMoviesList" ItemsSource="{Binding upcomingMovies}" 
                       IsItemClickEnabled="True" ItemClick="UpComingMoviesList_ItemClick"
                       ItemTemplate="{StaticResource MovieListDataTemplate}"
-                      ItemsPanel="{StaticResource MovieListPanelTemplate}" ScrollViewer.HorizontalScrollBarVisibility="Visible" ScrollViewer.VerticalScrollBarVisibility="Auto">
+                      ItemsPanel="{StaticResource MovieListPanelTemplate}">
                     </GridView>
                 </ScrollViewer>
-                <TextBlock Text="Now Playing" FontSize="20"></TextBlock>
+                <TextBlock Text="Now Playing" FontSize="28" TextWrapping="Wrap" Margin="0,20,0,10"></TextBlock>
                 <ScrollViewer VerticalScrollMode="Disabled" HorizontalScrollBarVisibility="Visible" VerticalScrollBarVisibility="Disabled">
                     <GridView Name="NowPlayingMoviesList" ItemsSource="{Binding nowPlayingMovies}" 
                       IsItemClickEnabled="True" ItemClick="NowPlayingMoviesList_ItemClick"
                       ItemTemplate="{StaticResource MovieListDataTemplate}"
-                      ItemsPanel="{StaticResource MovieListPanelTemplate}" ScrollViewer.HorizontalScrollBarVisibility="Visible" ScrollViewer.VerticalScrollBarVisibility="Auto">
+                      ItemsPanel="{StaticResource MovieListPanelTemplate}">
                     </GridView>
                 </ScrollViewer>
             </StackPanel>

@@ -52,7 +52,7 @@ namespace Project3.Views
         {
             var movie = (Movie)e.ClickedItem;
             App.movieId = movie.id;
-            Frame.Navigate(typeof(MovieDetails));
+            this.Frame.Navigate(typeof(MovieDetails));
         }
 
     }
