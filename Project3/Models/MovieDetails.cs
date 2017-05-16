@@ -23,7 +23,18 @@ namespace Project3.Models
         public int[] genre_ids { get; set; }
         public string id { get; set; }
         public string original_title { get; set; }
-        public string original_language { get; set; }
+        private string _original_language;
+        public string original_language
+        {
+            get
+            {
+                return _original_language.ToUpper();
+            }
+            set
+            {
+                _original_language = value;
+            }
+        }
         public string title { get; set; }
         private string _backdrop_path;
         public string backdrop_path { get
@@ -37,7 +48,21 @@ namespace Project3.Models
         }
         public double vote_average { get; set; }
         public long budget { get; set; }
+        public string budgetFormatted
+        {
+            get
+            {
+                return string.Format("{0:C}", budget);
+            }
+        }
         public List<string> genres { get; set; } = new List<string>();
+        public string genresString
+        {
+            get
+            {
+                return string.Join(", ", genres);
+            }
+        }
         public string homepage { get; set; }
         private string _imdb;
         public string imdb_link { get
@@ -51,11 +76,36 @@ namespace Project3.Models
         public List<string> production_companies { get; set; } = new List<string>();
         public string status { get; set; }
         public long revenue { get; set; }
-        public int runtime { get; set; }
+        public string revenueFormatted
+        {
+            get
+            {
+                return string.Format("{0:C}", revenue);
+            }
+        }
+        private string _runtime;
+        public string runtime { get
+            {
+                return _runtime + " mins";
+            }
+            set
+            {
+                _runtime = value;
+            }
+        }
         public Credits credits { get; set; }
         public List<string> keywords { get; set; } = new List<string>();
+        public string keywordsString
+        {
+            get
+            {
+                return string.Join(", ", keywords);
+            }
+        }
         public string youtube_link { get; set; }
         public List<Review> reviews { get; set; }
         public List<Movie> similarMovies { get; set; }
+
+        
     }
 }

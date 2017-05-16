@@ -22,7 +22,7 @@ namespace Project3.ViewModels
             LoadData();
         }
 
-        private void LoadData()
+        private async void LoadData()
         {
 
             popularMovies = service.GetPopularMovies(1).results;

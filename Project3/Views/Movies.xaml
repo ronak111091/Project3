@@ -91,5 +91,8 @@
                 </ScrollViewer>
             </StackPanel>
         </ScrollViewer>
+        <ProgressRing x:Name="LoadingIndicator" />
+
     </Grid>
+    
 </Page>

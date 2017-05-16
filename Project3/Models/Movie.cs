@@ -31,7 +31,14 @@ namespace Project3.Models
         }
         public string id { get; set; }
         public string original_title { get; set; }
-        public string original_language { get; set; }
+        private string _original_language;
+        public string original_language { get {
+                return _original_language.ToUpper();
+            } set
+            {
+                _original_language = value;
+            }
+        }
         public string title { get; set; }
         private string _backdrop_path;
         public string backdrop_path { get

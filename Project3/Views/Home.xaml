@@ -11,7 +11,7 @@
 
     <Page.Resources>
         <DataTemplate x:Key="MovieListDataTemplate" x:DataType="data:Movie">
-            <Grid HorizontalAlignment="Center" Margin="0,10,0,10">
+            <Grid Margin="10,10,10,10">
                 <StackPanel>
                     <Image Stretch="UniformToFill">
                         <Image.Source>
@@ -28,7 +28,7 @@
             </Grid>
         </DataTemplate>
         <DataTemplate x:Key="TVShowListDataTemplate" x:DataType="data:TVShow">
-            <Grid HorizontalAlignment="Center" Margin="0,10,0,10">
+            <Grid Margin="10,10,10,10">
                 <StackPanel>
                     <Image Stretch="UniformToFill">
                         <Image.Source>
@@ -54,7 +54,7 @@
 
     <!--<Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">-->
     <ScrollViewer HorizontalScrollMode="Disabled">
-        <Grid>
+        <Grid Margin="20">
             <!--<Grid>-->
             <!--<Ellipse Fill="Yellow"></Ellipse>-->
             <Grid.ColumnDefinitions>
@@ -64,12 +64,12 @@
 
             <Grid>
                 <StackPanel>
-                    <TextBlock Text="In Theaters" FontSize="36" HorizontalAlignment="Left" Canvas.ZIndex="1"></TextBlock>
-                    <ListView Name="InTheaterMovieList" ItemsSource="{Binding movies}"
+                    <TextBlock Text="In Theaters" FontSize="36" HorizontalAlignment="Left" Canvas.ZIndex="1" Margin="55,0,0,0"></TextBlock>
+                    <ListView Name="InTheaterMovieList" ItemsSource="{Binding movies}" Margin="55,0,0,0"
                       ItemClick="InTheaterMovieList_ItemClick"
                       IsItemClickEnabled="True"
                       ItemTemplate="{StaticResource MovieListDataTemplate}" 
-                      HorizontalAlignment="Center" Width="500" ScrollViewer.VerticalScrollBarVisibility="Auto" ShowsScrollingPlaceholders="True">
+                      HorizontalAlignment="Left" Width="500" ScrollViewer.VerticalScrollBarVisibility="Auto" ShowsScrollingPlaceholders="True">
 
                     </ListView>
                 </StackPanel>
@@ -77,12 +77,12 @@
             </Grid>
             <Grid Grid.Column="1">
                 <StackPanel>
-                    <TextBlock Text="On TV" FontSize="36" HorizontalAlignment="Left"></TextBlock>
-                    <ListView Name="OnTVShowList"
+                    <TextBlock Text="On TV" FontSize="36" HorizontalAlignment="Left" Margin="55,0,0,0"></TextBlock>
+                    <ListView Name="OnTVShowList" Margin="55,0,0,0"
                       ItemClick="OnTVShowList_ItemClick"
                       IsItemClickEnabled="True"
                       ItemTemplate="{StaticResource TVShowListDataTemplate}" 
-                      HorizontalAlignment="Center" Width="500" ItemsSource="{Binding tVShows}" ScrollViewer.VerticalScrollBarVisibility="Auto" ShowsScrollingPlaceholders="True"/>
+                      HorizontalAlignment="Left" Width="500" ItemsSource="{Binding tVShows}" ScrollViewer.VerticalScrollBarVisibility="Auto" ShowsScrollingPlaceholders="True"/>
                 </StackPanel>
 
             </Grid>

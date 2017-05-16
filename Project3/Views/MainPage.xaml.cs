@@ -61,6 +61,11 @@ namespace Project3.Views
                 //BackButton.Visibility = Visibility.Collapsed;
 
             }
+            if (HamburgerSplitView.IsPaneOpen)
+            {
+                HamburgerSplitView.IsPaneOpen = false;
+            }
+             
         }
 
         //private void BackButton_Click(object sender, RoutedEventArgs e)

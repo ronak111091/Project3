@@ -32,15 +32,15 @@
         </DataTemplate>
 
         <DataTemplate x:DataType="data:Review" x:Key="ReviewsDataTemplate">
-            <StackPanel Margin="0,10">
+            <StackPanel Margin="0,10"  Background="{ThemeResource AppBarBackground}">
                 <Border Background="{ThemeResource AppBarBackground}">
-                    <StackPanel>
+                    <StackPanel Margin="6">
                         <TextBlock Text="{Binding reviewBy}" FontSize="24" TextWrapping="Wrap"></TextBlock>
                         <TextBlock Text="{Binding author}" FontSize="16" TextWrapping="Wrap"></TextBlock>
                     </StackPanel>
                 </Border>
                 <Border Background="{ThemeResource AppBarBorderThemeBrush}">
-                    <TextBlock Text="{Binding content}" FontSize="16" TextWrapping="Wrap"></TextBlock>
+                    <TextBlock Margin="6" Text="{Binding content}" FontSize="16" TextWrapping="Wrap"></TextBlock>
                 </Border>
             </StackPanel>
         </DataTemplate>
@@ -113,8 +113,7 @@
                                 </StackPanel>
                             </StackPanel>
                         </StackPanel>
-
-                        <TextBlock Text="Top Billed Cast" FontSize="24" Margin="0,20,0,10" TextWrapping="Wrap"></TextBlock>
+                        <TextBlock Text="Top Billed Cast" FontSize="24" Margin="0,27,0,10" TextWrapping="Wrap"></TextBlock>
                         <GridView Name="CastGridView" 
                           ItemsSource="{Binding cast}"
                           ItemTemplate="{StaticResource CastListDataTemplate}"
@@ -150,7 +149,7 @@
                                 <StackPanel>
                                     <TextBlock Text="Revenue" FontSize="20" Margin="0,10" TextWrapping="Wrap">
                                     </TextBlock>
-                                    <TextBlock Text="{Binding movieDetails.revenue}" FontSize="16" Margin="0,10" TextWrapping="Wrap"></TextBlock>
+                                    <TextBlock Text="{Binding movieDetails.revenueFormatted}" FontSize="16" Margin="0,10" TextWrapping="Wrap"></TextBlock>
                                 </StackPanel>
                             </Grid>
                             <Grid Grid.Row="3">
@@ -168,7 +167,7 @@
                             <Grid Grid.Column="1" Grid.Row="1">
                                 <StackPanel>
                                     <TextBlock Text="Budget" FontSize="20" Margin="0,10" TextWrapping="Wrap"></TextBlock>
-                                    <TextBlock Text="{Binding movieDetails.budget}" FontSize="16" Margin="0,10" TextWrapping="Wrap"></TextBlock>
+                                    <TextBlock Text="{Binding movieDetails.budgetFormatted}" FontSize="16" Margin="0,10" TextWrapping="Wrap"></TextBlock>
                                 </StackPanel>
                             </Grid>
                             <Grid Grid.Column="1" Grid.Row="2">
@@ -186,23 +185,25 @@
                             <Grid Grid.Column="2">
                                 <StackPanel>
                                     <TextBlock Text="Genres" FontSize="20" Margin="0,10" TextWrapping="Wrap"></TextBlock>
-                                    <GridView 
+                                    <!--<GridView 
                                         ItemsSource="{Binding genres}"
                                         ItemTemplate="{StaticResource StringListDataTemplate}"
                                         IsItemClickEnabled="False">
 
-                                    </GridView>
+                                    </GridView>-->
+                                    <TextBlock Text="{Binding movieDetails.genresString}" TextWrapping="Wrap" FontSize="16" Margin="0,10" ></TextBlock>
                                 </StackPanel>
                             </Grid>
                             <Grid Grid.Column="2" Grid.Row="1" Grid.RowSpan="2">
                                 <StackPanel>
                                     <TextBlock Text="Keywords" FontSize="20" Margin="0,10" TextWrapping="Wrap"></TextBlock>
-                                    <GridView 
+                                    <!--<GridView 
                                         ItemsSource="{Binding keywords}"
                                         ItemTemplate="{StaticResource StringListDataTemplate}"
                                         IsItemClickEnabled="False">
 
-                                    </GridView>
+                                    </GridView>-->
+                                    <TextBlock Text="{Binding movieDetails.keywordsString}" TextWrapping="Wrap" FontSize="16" Margin="0,10" ></TextBlock>
                                 </StackPanel>
                             </Grid>
                         </Grid>
@@ -239,6 +240,7 @@
                 </Grid>
             </Grid>
         </Popup>
+        <ProgressRing x:Name="LoadingIndicator" />
 
     </Grid>
 </Page>
