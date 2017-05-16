@@ -14,7 +14,7 @@
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
         <TextBlock Text="This is TV show's page!"></TextBlock>
-        <TextBlock Text="Under development" FontSize="24"></TextBlock>
+        <TextBlock Text="Under development" FontSize="24" Margin="0,20,0,0"></TextBlock>
     </Grid>
 
 </Page>
