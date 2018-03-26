@@ -1,5 +1,4 @@
-# Project3
-Academic project
+# Project3 Client Design and Development
 
 A Movie and TV shows internet database built using Windows Universal Platform.
 As of now functionalities related to Movies are implemented.
